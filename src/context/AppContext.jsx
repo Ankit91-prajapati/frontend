@@ -5,36 +5,58 @@ import { toast } from "react-toastify";
 export const AppContext = createContext();
 
 export const AppContextProvider = (props) => {
-  axios.defaults.withCredentials = true;
-
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
   const [isLoggedin, setIsLoggedin] = useState(false);
-  const [userData, setUserData] = useState(false);
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Ensure cookies are sent with every request
+  axios.defaults.withCredentials = true;
 
   const getAuthState = async () => {
     try {
-      const { data } = await axios.get(backendUrl + "/api/auth/is-auth");
+      const { data } = await axios.get(`${backendUrl}/api/auth/is-auth`, {
+        withCredentials: true,
+      });
+
       if (data.success) {
         setIsLoggedin(true);
-        getUserData();
+      } else {
+        setIsLoggedin(false);
       }
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.response?.data?.message || "Auth check failed");
+    } finally {
+      setLoading(false);
     }
   };
 
   const getUserData = async () => {
     try {
-      const { data } = await axios.get(backendUrl + "/api/user/data");
-      data.success ? setUserData(data.userData) : toast.error(data.message);
+      const { data } = await axios.get(`${backendUrl}/api/user/data`, {
+        withCredentials: true,
+      });
+
+      if (data.success) {
+        setUserData(data.userData);
+      } else {
+        toast.error(data.message);
+      }
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.response?.data?.message || "Failed to fetch user data");
     }
   };
 
   useEffect(() => {
     getAuthState();
   }, []);
+
+  useEffect(() => {
+    if (isLoggedin) {
+      getUserData();
+    }
+  }, [isLoggedin]);
 
   const value = {
     backendUrl,
@@ -43,9 +65,12 @@ export const AppContextProvider = (props) => {
     userData,
     setUserData,
     getUserData,
+    loading,
   };
 
   return (
-    <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
+    <AppContext.Provider value={value}>
+      {props.children}
+    </AppContext.Provider>
   );
 };

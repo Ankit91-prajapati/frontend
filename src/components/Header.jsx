@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { AppContext } from '../context/AppContext.jsx';
 
 const Header = () => {
-  const { userData } = useContext(AppContext);
+  // const { userData } = useContext(AppContext);
 
   const userName = userData?.name || 'Developer';
 

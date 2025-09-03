@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import { AppContext } from '../context/AppContext.jsx';
+// import { AppContext } from '../context/AppContext.jsx';
 
 const Header = () => {
-  const { userData } = useContext(AppContext);
+  // const { userData } = useContext(AppContext);
 
-  const userName = userData?.name || 'Developer';
+  // const userName = userData?.name ||'Developer';
+  const userName = 'Developer'
 
   return (
     <div className='flex flex-col items-center mt-20 px-4 text-center text-gray-800'>

@@ -32,31 +32,31 @@ export const AppContextProvider = (props) => {
     }
   };
 
-  // const getUserData = async () => {
-  //   try {
-  //     const { data } = await axios.get(`${backendUrl}/api/user/data`, {
-  //       withCredentials: true,
-  //     });
+  const getUserData = async () => {
+    try {
+      const { data } = await axios.get(`${backendUrl}/api/user/data`, {
+        withCredentials: true,
+      });
 
-  //     if (data.success) {
-  //       setUserData(data.userData);
-  //     } else {
-  //       toast.error(data.message);
-  //     }
-  //   } catch (error) {
-  //     toast.error(error.response?.data?.message || "Failed to fetch user data");
-  //   }
-  // };
+      if (data.success) {
+        setUserData(data.userData);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to fetch user data");
+    }
+  };
 
   useEffect(() => {
     getAuthState();
   }, []);
 
-  // useEffect(() => {
-  //   if (isLoggedin) {
-  //     getUserData();
-  //   }
-  // }, [isLoggedin]);
+  useEffect(() => {
+    if (isLoggedin) {
+      getUserData();
+    }
+  }, [isLoggedin]);
 
   const value = {
     backendUrl,

@@ -16,9 +16,9 @@ export const AppContextProvider = (props) => {
 
   const getAuthState = async () => {
     try {
-      const { data } = await axios.get(`${backendUrl}/api/auth/is-auth`, {
-        withCredentials: true,
-      });
+      const { data } = await axios.get(backendUrl+"/api/auth/is-auth"
+        
+      );
 
       if (data.success) {
         setIsLoggedin(true);
@@ -32,31 +32,29 @@ export const AppContextProvider = (props) => {
     }
   };
 
-  // const getUserData = async () => {
-  //   try {
-  //     const { data } = await axios.get(`${backendUrl}/api/user/data`, {
-  //       withCredentials: true,
-  //     });
+  const getUserData = async () => {
+    try {
+      const { data } = await axios.get(backendUrl+"/api/user/data");
 
-  //     if (data.success) {
-  //       setUserData(data.userData);
-  //     } else {
-  //       toast.error(data.message);
-  //     }
-  //   } catch (error) {
-  //     toast.error(error.response?.data?.message || "Failed to fetch user data");
-  //   }
-  // };
+      if (data.success) {
+        setUserData(data.userData);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to fetch user data");
+    }
+  };
 
   useEffect(() => {
     getAuthState();
   }, []);
 
-  // useEffect(() => {
-  //   if (isLoggedin) {
-  //     getUserData();
-  //   }
-  // }, [isLoggedin]);
+  useEffect(() => {
+    if (isLoggedin) {
+      getUserData();
+    }
+  }, [isLoggedin]);
 
   const value = {
     backendUrl,
@@ -64,7 +62,7 @@ export const AppContextProvider = (props) => {
     setIsLoggedin,
     userData,
     setUserData,
-    // getUserData,
+    getUserData,
     loading,
   };
 

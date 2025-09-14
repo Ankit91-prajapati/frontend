@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 
 const ResetPassword = () => {
   const { backendUrl } = useContext(AppContext);
-  axios.defaults.withCredentials = true;
+  // axios.defaults.withCredentials = true;
 
   const inputRefs = React.useRef([]);
   const navigate = useNavigate();

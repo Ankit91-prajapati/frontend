@@ -4,8 +4,8 @@ import { AppContext } from "../context/AppContext.jsx";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-// ✅ set once, so every request sends cookies
-axios.defaults.withCredentials = true;
+//  set once, so every request sends cookies
+// axios.defaults.withCredentials = true;
 
 const Login = () => {
   const [state, setState] = useState("Sign Up");

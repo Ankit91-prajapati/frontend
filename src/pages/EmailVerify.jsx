@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const EmailVerify = () => {
-  axios.defaults.withCredentials = true;
+  // axios.defaults.withCredentials = true;
 
   const { backendUrl, isLoggedin, userData, getUserData } =
     useContext(AppContext);

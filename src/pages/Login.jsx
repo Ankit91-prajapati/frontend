@@ -105,7 +105,7 @@ const Login = () => {
           >
             Forgot password?
           </p>
-          <button className="w-full py-2.5 rounded-full bg-gradient-to-r from-indigo-500 to-indigo-900 text-white font-medium">
+          <button className="w-full py-2.5 rounded-full bg-gradient-to-r from-indigo-500 to-indigo-900 text-white font-medium cursor-pointer  transform transition-transform active:scale-95">
             {state}
           </button>
         </form>
@@ -115,7 +115,7 @@ const Login = () => {
             Already have an account?{" "}
             <span
               onClick={() => setState("Login")}
-             className="text-blue-400 underline cursor-pointer hover:bg-blue-600 transform transition-transform active:scale-95"
+             className="text-blue-400 underline cursor-pointer"
             >
               Login here
             </span>
@@ -125,7 +125,7 @@ const Login = () => {
             Don't have an account?{" "}
             <span
               onClick={() => setState("Sign Up")}
-              className="text-blue-400 underline cursor-pointer hover:bg-blue-600 transform transition-transform active:scale-95"
+              className="text-blue-400 underline cursor-pointer"
             >
               Sign up
             </span>

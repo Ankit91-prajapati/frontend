@@ -115,7 +115,7 @@ const Login = () => {
             Already have an account?{" "}
             <span
               onClick={() => setState("Login")}
-              className="text-blue-400 underline cursor-pointer"
+             className="text-blue-400 underline cursor-pointer hover:bg-blue-600 transform transition-transform active:scale-95"
             >
               Login here
             </span>
@@ -125,7 +125,7 @@ const Login = () => {
             Don't have an account?{" "}
             <span
               onClick={() => setState("Sign Up")}
-              className="text-blue-400 underline cursor-pointer"
+              className="text-blue-400 underline cursor-pointer hover:bg-blue-600 transform transition-transform active:scale-95"
             >
               Sign up
             </span>

@@ -1,11 +1,13 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export const AppContext = createContext();
 
 export const AppContextProvider = (props) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const navigate = useNavigate();
 
   const [isLoggedin, setIsLoggedin] = useState(false);
   const [userData, setUserData] = useState(null);
@@ -16,9 +18,9 @@ export const AppContextProvider = (props) => {
 
   const getAuthState = async () => {
     try {
-      const { data } = await axios.get(backendUrl+"/api/auth/is-auth"
-        
-      );
+      const { data } = await axios.get(`${backendUrl}/api/auth/is-auth`, {
+        withCredentials: true,
+      });
 
       if (data.success) {
         setIsLoggedin(true);
@@ -26,7 +28,7 @@ export const AppContextProvider = (props) => {
         setIsLoggedin(false);
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || "Auth check failed");
+      setIsLoggedin(false);
     } finally {
       setLoading(false);
     }
@@ -34,12 +36,14 @@ export const AppContextProvider = (props) => {
 
   const getUserData = async () => {
     try {
-      const { data } = await axios.get(backendUrl+"/api/user/data");
+      const { data } = await axios.get(`${backendUrl}/api/user/data`, {
+        withCredentials: true,
+      });
 
       if (data.success) {
         setUserData(data.userData);
       } else {
-        toast.error(data.message);
+        toast.error(data.message || "Failed to fetch user data");
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to fetch user data");
@@ -55,6 +59,12 @@ export const AppContextProvider = (props) => {
       getUserData();
     }
   }, [isLoggedin]);
+
+  useEffect(() => {
+    if (!loading && !isLoggedin) {
+      navigate("/login");
+    }
+  }, [loading, isLoggedin]);
 
   const value = {
     backendUrl,

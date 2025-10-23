@@ -4,9 +4,6 @@ import { AppContext } from "../context/AppContext.jsx";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-//  set once, so every request sends cookies
-// axios.defaults.withCredentials = true;
-
 const Login = () => {
   const [state, setState] = useState("Sign Up");
   const [name, setName] = useState("");
@@ -57,7 +54,9 @@ const Login = () => {
           {state === "Sign Up" ? "Create Account" : "Login"}
         </h2>
         <p className="text-center text-sm mb-6">
-          {state === "Sign Up" ? "Create your account" : "Login to your account!"}
+          {state === "Sign Up"
+            ? "Create your account"
+            : "Login to your account!"}
         </p>
 
         <form onSubmit={onSubmitHandler}>
@@ -115,7 +114,7 @@ const Login = () => {
             Already have an account?{" "}
             <span
               onClick={() => setState("Login")}
-             className="text-blue-400 underline cursor-pointer"
+              className="text-blue-400 underline cursor-pointer"
             >
               Login here
             </span>
